@@ -20,9 +20,9 @@ console.log(topic)
 
 <template>
   <header>
-    <div class="p-2 flex justify-center items-center text-sky-400" style="background: #00F5FF ">
-      <span class="font-bold text-xl text-green-900">评论区座谈会</span>
+    <div class="p-2 flex justify-center items-center text-sky-400" style="background:linear-gradient(135deg,#ff75c3,#ffa647,#ffe83f,#9fff5b,#70e2ff,#cd93ff)">
       <img src="@/assets/images/douyin.png" alt="" class="w-8">
+      <span class="font-bold text-2xl text-green-900">评论区座谈会</span>
     </div>
   </header>
   <main class="mt-2 overflow-auto">

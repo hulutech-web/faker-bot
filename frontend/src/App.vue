@@ -1,31 +1,38 @@
 <script setup>
 import {computed, ref} from "vue";
-
+import router from "./router/router";
+console.log(router)
 const toHome = () => {
+  router.push({path: '/home'})
   console.log("toHome")
 }
 const toCategory = () => {
+  router.push({path: '/category'})
+
   console.log("toCategory")
 }
 const toRank = () => {
+  router.push({path: '/rank'})
+
   console.log("toRank")
 }
 const toSetting = () => {
+  router.push({path: '/setting'})
   console.log("toSetting")
 }
 const value = ref(0)
 const color = computed(() => {
   switch (value.value) {
     case 0:
-      return 'blue-grey'
+      return 'blue-darken-2'
     case 1:
-      return 'teal'
+      return 'pink-darken-3'
     case 2:
-      return 'brown'
+      return 'green-darken-2'
     case 3:
-      return 'indigo'
+      return 'deep-orange-darken-3'
     default:
-      return 'blue-grey'
+      return 'orange-darken-1'
   }
 })
 </script>
