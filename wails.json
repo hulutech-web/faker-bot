@@ -1,0 +1,19 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "faker-bot",
+  "outputfilename": "faker-bot",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "hulutech-web",
+    "email": "yuanhaozhuzhu@hotmail.com"
+  },
+  "developer": {
+    "mode": "dev",
+    "log": {
+      "level": "error"
+    }
+  }
+}
