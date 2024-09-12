@@ -1,6 +1,18 @@
 <script setup>
 import {computed, ref} from "vue";
 
+const toHome = () => {
+  console.log("toHome")
+}
+const toCategory = () => {
+  console.log("toCategory")
+}
+const toRank = () => {
+  console.log("toRank")
+}
+const toSetting = () => {
+  console.log("toSetting")
+}
 const value = ref(0)
 const color = computed(() => {
   switch (value.value) {
@@ -20,46 +32,42 @@ const color = computed(() => {
 
 <template>
   <v-app>
-    <header>
-      <h1 class="text-3xl font-bold  text-red-800">
-        评论区座谈会
-      </h1>
-    </header>
     <main>
-      <router-view></router-view>
+      <RouterView>
+      </RouterView>
     </main>
-      <v-layout class="overflow-visible" style="height: 56px;">
-        <v-bottom-navigation
-            v-model="value"
-            :bg-color="color"
-            mode="shift"
-            grow
-        >
-          <v-btn>
-            <v-icon>mdi-television-play</v-icon>
+    <v-layout class="overflow-visible" style="height: 56px;">
+      <v-bottom-navigation
+          v-model="value"
+          :bg-color="color"
+          mode="shift"
+          grow
+      >
+        <v-btn @click="toHome">
+          <v-icon>mdi-television-play</v-icon>
 
-            <span>Video</span>
-          </v-btn>
+          <span>首页</span>
+        </v-btn>
 
-          <v-btn>
-            <v-icon>mdi-music-note</v-icon>
+        <v-btn @click="toCategory">
+          <v-icon>mdi-music-note</v-icon>
 
-            <span>Music</span>
-          </v-btn>
+          <span>热播榜</span>
+        </v-btn>
 
-          <v-btn>
-            <v-icon>mdi-book</v-icon>
+        <v-btn @click="toRank">
+          <v-icon>mdi-book</v-icon>
 
-            <span>Book</span>
-          </v-btn>
+          <span>搞笑榜</span>
+        </v-btn>
 
-          <v-btn>
-            <v-icon>mdi-image</v-icon>
+        <v-btn @click="toSetting">
+          <v-icon>mdi-image</v-icon>
 
-            <span>Image</span>
-          </v-btn>
-        </v-bottom-navigation>
-      </v-layout>
+          <span>设置</span>
+        </v-btn>
+      </v-bottom-navigation>
+    </v-layout>
   </v-app>
 </template>
 

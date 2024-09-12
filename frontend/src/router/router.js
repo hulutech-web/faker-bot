@@ -1,0 +1,10 @@
+import { createRouter, createWebHashHistory } from 'vue-router'
+import routes from './index.js'
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes,
+    scrollBehavior() {
+        return { top: 0, behavior: 'smooth' }
+    },
+})
+export default router
