@@ -107,6 +107,6 @@ func (c *Cache) Authorize() error {
 	}
 	// 2 个小时过期
 
-	cacheIns.Set("access_token", result.Data.AccessToken, 2*time.Hour)
+	cacheIns.Set("access_token", result.Data.AccessToken, 2*time.Minute)
 	return nil
 }

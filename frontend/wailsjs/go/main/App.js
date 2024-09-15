@@ -14,8 +14,8 @@ export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
 
-export function HotSearch(arg1) {
-  return window['go']['main']['App']['HotSearch'](arg1);
+export function HotSearch() {
+  return window['go']['main']['App']['HotSearch']();
 }
 
 export function HotSentence(arg1) {
@@ -28,10 +28,6 @@ export function HotVideo() {
 
 export function List() {
   return window['go']['main']['App']['List']();
-}
-
-export function Search(arg1) {
-  return window['go']['main']['App']['Search'](arg1);
 }
 
 export function Topic() {

@@ -20,6 +20,11 @@ export default [
         component: () => import('@/view/video.vue'),
     },
     {
+        path: '/authorize',
+        name: 'authorize',//用户授权
+        component: () => import('@/view/authorize.vue'),
+    },
+    {
         path: '/setting',
         name: 'setting',//布局路由
         component: () => import('@/view/setting.vue'),

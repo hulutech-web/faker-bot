@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"faker-bot/backend/entities"
@@ -15,9 +14,9 @@ import (
 	"faker-bot/backend/http/vars/trending"
 	"faker-bot/backend/orm"
 	"faker-bot/backend/orm/migrate"
+	"faker-bot/backend/orm/models"
 	"faker-bot/backend/utils"
 	"fmt"
-	"io"
 	"log"
 )
 
@@ -60,97 +59,112 @@ func (p *App) List() []entities.Param {
 	return params
 }
 
-func (p *App) HotVideo() {
+func (p *App) HotVideo() hotvideo.Root {
 	ctrl := http.NewController()
 	resp, err := ctrl.HotVideo()
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultBuffer := bytes.NewBuffer([]byte{})
-	_, _ = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
 	var result hotvideo.Root
-	_ = json.Unmarshal(resultBuffer.Bytes(), &result)
+	decoder := json.NewDecoder(&resp)
+	decoder.Decode(&result)
+	return result
 }
 
-func (p *App) Topic() {
+func (p *App) Topic() topic.Root {
 	ctrl := http.NewController()
 	resp, err := ctrl.Topic()
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultBuffer := bytes.NewBuffer([]byte{})
-	_, _ = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
 	var result topic.Root
-	_ = json.Unmarshal(resultBuffer.Bytes(), &result)
+
+	decoder := json.NewDecoder(&resp)
+	decoder.Decode(&result)
+	return result
 }
 
-func (p *App) Amusement() {
+func (p *App) Amusement() amusement.Root {
 	ctrl := http.NewController()
 	resp, err := ctrl.Amusement()
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultBuffer := bytes.NewBuffer([]byte{})
-	_, _ = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
 	var result amusement.Root
-	_ = json.Unmarshal(resultBuffer.Bytes(), &result)
+
+	decoder := json.NewDecoder(&resp)
+	decoder.Decode(&result)
+	for _, li := range result.Data.List {
+		for _, i2 := range li.VideoList {
+			var amusement models.Amusement
+			amusement.Title = i2.Title
+			amusement.ShareURL = i2.ShareURL
+			amusement.ItemCover = i2.ItemCover
+			orm.GetInstance().Model(&models.Amusement{}).
+				Where("title = ?", i2.Title).FirstOrCreate(&amusement)
+		}
+	}
+	return result
 }
 
-func (p *App) Drama() {
+func (p *App) Drama() drama.Root {
 	ctrl := http.NewController()
 	resp, err := ctrl.Drama()
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultBuffer := bytes.NewBuffer([]byte{})
-	_, _ = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
+
 	var result drama.Root
-	_ = json.Unmarshal(resultBuffer.Bytes(), &result)
+
+	decoder := json.NewDecoder(&resp)
+	decoder.Decode(&result)
+	return result
 }
 
-func (p *App) Search(keyword string) {
-
-}
-
-func (p *App) HotSearch(keyword string) {
+func (p *App) HotSearch() hotsearch.Root {
 	ctrl := http.NewController()
 	resp, err := ctrl.HotSearch()
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultBuffer := bytes.NewBuffer([]byte{})
-	_, _ = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
+
 	var result hotsearch.Root
-	_ = json.Unmarshal(resultBuffer.Bytes(), &result)
+
+	decoder := json.NewDecoder(&resp)
+	decoder.Decode(&result)
+	return result
 }
 
-func (p *App) Trending() {
+// 趋势上升词
+func (p *App) Trending() trending.Root {
 	ctrl := http.NewController()
 	resp, err := ctrl.Trending()
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultBuffer := bytes.NewBuffer([]byte{})
-	_, _ = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
 	var result trending.Root
-	_ = json.Unmarshal(resultBuffer.Bytes(), &result)
+
+	decoder := json.NewDecoder(&resp)
+	decoder.Decode(&result)
+	for _, li := range result.Data.List {
+		var trend models.Trend
+		trend.Sentence = li.Sentence
+		trend.HotLevel = li.HotLevel
+		orm.GetInstance().Model(&models.Trend{}).
+			Where("sentence = ?", li.Sentence).FirstOrCreate(&trend)
+	}
+	return result
 }
 
-func (p *App) HotSentence(keyword string) {
+// 热搜
+func (p *App) HotSentence(keyword string) hotsentence.Root {
 	ctrl := http.NewController()
 	resp, err := ctrl.HotSentence(keyword)
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultBuffer := bytes.NewBuffer([]byte{})
-	_, _ = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
 	var result hotsentence.Root
-	_ = json.Unmarshal(resultBuffer.Bytes(), &result)
+	decoder := json.NewDecoder(&resp)
+	decoder.Decode(&result)
+	return result
 }

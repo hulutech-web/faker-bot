@@ -28,7 +28,6 @@ func Seeder() {
 		{Name: "话题榜"},
 		{Name: "搞笑榜"},
 		{Name: "美食榜"},
-		{Name: "达人榜"},
 		{Name: "剧情榜"},
 		{Name: "直播榜"},
 		{Name: "热歌榜"},
@@ -50,8 +49,8 @@ func Seeder() {
 			Label: "搞笑榜",
 		},
 		{
-			Url:   "https://open.douyin.com/data/extern/billboard/food/overall/",
-			Label: "美食榜",
+			Url:   "https://open.douyin.com/data/extern/billboard/drama/overall/",
+			Label: "短剧",
 		},
 		{
 			Url:   "https://open.douyin.com/hotsearch/sentences/",

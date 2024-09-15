@@ -18,7 +18,7 @@ func NewController() *Controller {
 	return &Controller{}
 }
 
-func (c *Controller) HotVideo() (http.Response, error) {
+func (c *Controller) HotVideo() (bytes.Buffer, error) {
 
 	access_token := utils.GetInstance().Get("access_token").(string)
 	var param entities.Param
@@ -34,83 +34,183 @@ func (c *Controller) HotVideo() (http.Response, error) {
 
 	resp, err := client.Do(request)
 	if err != nil {
-		return http.Response{}, err
+		return bytes.Buffer{}, err
 	}
 	//如果状态码不为200，打印状态码并退出
 	if resp.StatusCode != 200 {
-		return http.Response{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
+		return bytes.Buffer{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
 	}
 	//关闭请求
 	defer resp.Body.Close()
 	resultBuffer := bytes.NewBuffer([]byte{})
 	_, err = io.Copy(resultBuffer, resp.Body)
-	fmt.Println(resultBuffer.String())
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
+	return *resultBuffer, nil
 }
 
-func (c *Controller) Topic() (http.Response, error) {
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
+func (c *Controller) Topic() (bytes.Buffer, error) {
+	access_token := utils.GetInstance().Get("access_token").(string)
+	var param entities.Param
+	orm.GetInstance().Model(&param).Where("id=?", 2).First(&param)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	request, err := http.NewRequest("GET", param.Url, nil)
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("access-token", access_token)
+
+	resp, err := client.Do(request)
+	if err != nil {
+		return bytes.Buffer{}, err
+	}
+	//如果状态码不为200，打印状态码并退出
+	if resp.StatusCode != 200 {
+		return bytes.Buffer{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
+	}
+	//关闭请求
+	defer resp.Body.Close()
+	resultBuffer := bytes.NewBuffer([]byte{})
+	_, err = io.Copy(resultBuffer, resp.Body)
+	return *resultBuffer, nil
 }
 
-func (c *Controller) Amusement() (http.Response, error) {
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
+func (c *Controller) Amusement() (bytes.Buffer, error) {
+	access_token := utils.GetInstance().Get("access_token").(string)
+	var param entities.Param
+	orm.GetInstance().Model(&param).Where("id=?", 3).First(&param)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	request, err := http.NewRequest("GET", param.Url, nil)
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("access-token", access_token)
+
+	resp, err := client.Do(request)
+	if err != nil {
+		return bytes.Buffer{}, err
+	}
+	//如果状态码不为200，打印状态码并退出
+	if resp.StatusCode != 200 {
+		return bytes.Buffer{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
+	}
+	//关闭请求
+	defer resp.Body.Close()
+	resultBuffer := bytes.NewBuffer([]byte{})
+	_, err = io.Copy(resultBuffer, resp.Body)
+	return *resultBuffer, nil
 }
 
-func (c *Controller) Drama() (http.Response, error) {
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
-}
-func (c *Controller) Search(keyword string) (http.Response, error) {
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
+func (c *Controller) Drama() (bytes.Buffer, error) {
+	access_token := utils.GetInstance().Get("access_token").(string)
+	var param entities.Param
+	orm.GetInstance().Model(&param).Where("id=?", 4).First(&param)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	request, err := http.NewRequest("GET", param.Url, nil)
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("access-token", access_token)
+
+	resp, err := client.Do(request)
+	if err != nil {
+		return bytes.Buffer{}, err
+	}
+	//如果状态码不为200，打印状态码并退出
+	if resp.StatusCode != 200 {
+		return bytes.Buffer{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
+	}
+	//关闭请求
+	defer resp.Body.Close()
+	resultBuffer := bytes.NewBuffer([]byte{})
+	_, err = io.Copy(resultBuffer, resp.Body)
+	return *resultBuffer, nil
 }
 
-func (c *Controller) HotSearch() (http.Response, error) {
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
+func (c *Controller) HotSearch() (bytes.Buffer, error) {
+	access_token := utils.GetInstance().Get("access_token").(string)
+	var param entities.Param
+	orm.GetInstance().Model(&param).Where("id=?", 5).First(&param)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	request, err := http.NewRequest("GET", param.Url, nil)
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("access-token", access_token)
+
+	resp, err := client.Do(request)
+	if err != nil {
+		return bytes.Buffer{}, err
+	}
+	//如果状态码不为200，打印状态码并退出
+	if resp.StatusCode != 200 {
+		return bytes.Buffer{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
+	}
+	//关闭请求
+	defer resp.Body.Close()
+	resultBuffer := bytes.NewBuffer([]byte{})
+	_, err = io.Copy(resultBuffer, resp.Body)
+	return *resultBuffer, nil
 }
 
-func (c *Controller) Trending() (http.Response, error) {
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
+func (c *Controller) Trending() (bytes.Buffer, error) {
+	access_token := utils.GetInstance().Get("access_token").(string)
+	var param entities.Param
+	orm.GetInstance().Model(&param).Where("id=?", 6).First(&param)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	request, err := http.NewRequest("GET", param.Url, nil)
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("access-token", access_token)
+
+	resp, err := client.Do(request)
+	if err != nil {
+		return bytes.Buffer{}, err
+	}
+	//如果状态码不为200，打印状态码并退出
+	if resp.StatusCode != 200 {
+		return bytes.Buffer{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
+	}
+	//关闭请求
+	defer resp.Body.Close()
+	resultBuffer := bytes.NewBuffer([]byte{})
+	_, err = io.Copy(resultBuffer, resp.Body)
+	return *resultBuffer, nil
 }
 
-func (c *Controller) HotSentence(hot_sentence string) (http.Response, error) {
-	return http.Response{
-		Status:     "success",
-		StatusCode: 200,
-		Proto:      "HTTP/1.0",
-		ProtoMajor: 0,
-	}, nil
+func (c *Controller) HotSentence(hot_sentence string) (bytes.Buffer, error) {
+	access_token := utils.GetInstance().Get("access_token").(string)
+	var param entities.Param
+	orm.GetInstance().Model(&param).Where("id=?", 7).First(&param)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	request, err := http.NewRequest("GET", param.Url, nil)
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("access-token", access_token)
+
+	resp, err := client.Do(request)
+	if err != nil {
+		return bytes.Buffer{}, err
+	}
+	//如果状态码不为200，打印状态码并退出
+	if resp.StatusCode != 200 {
+		return bytes.Buffer{}, fmt.Errorf("请求失败，状态码为：%v", resp.StatusCode)
+	}
+	//关闭请求
+	defer resp.Body.Close()
+	resultBuffer := bytes.NewBuffer([]byte{})
+	_, err = io.Copy(resultBuffer, resp.Body)
+	return *resultBuffer, nil
 }
